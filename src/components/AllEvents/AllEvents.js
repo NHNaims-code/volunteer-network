@@ -42,7 +42,7 @@ const AllEvents = () => {
         <div>
 
 
-        <div className="pt-4">
+        <div className="pt-4 pb-4" style={{background: '#F8FAFC'}}>
             <h1>I GROW BY HELPING PEOPLE IN NEED.</h1>
             <div className="input-group mb-3 mt-4 w-25 mx-auto">
                 <input type="text"onChange={handleSearchText} className="form-control" placeholder="search..." aria-label="search..." aria-describedby="basic-addon2"/>

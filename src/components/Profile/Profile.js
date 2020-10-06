@@ -12,13 +12,7 @@ const Profile = () => {
     
     useEffect(() => {
         const token = sessionStorage.getItem('token');
-        fetch(`https://quiet-spire-05247.herokuapp.com/user/${loggedInUser.email}`,{
-            method: 'GET',
-            headers: {
-                "Authorization" : `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
-        })
+        fetch(`http://localhost:5000/user/developernaim20@gmail.com`)
         .then(response => response.json())
         .then(data => {
             setProfile(data);

@@ -6,7 +6,7 @@ import logo from '../../logos/logo.png';
 
 const Navbar = () => {
     return (
-        <div style={{height: '150px', background: '#F8FAFC'}}>
+        <div style={{height: '100px', background: '#F8FAFC'}}>
             <div className="navbar navbar-expand-lg navbar-light bg-light container row mx-auto">
             <a className="navbar-brand col-5 text-left" href="#">
                 <img height="50px" src={logo} alt="logo"/>
@@ -33,8 +33,8 @@ const Navbar = () => {
                     <a onClick={()=>{alert('Cooming soon!')}} className="nav-link" href="#">Blog</a>
                 </li>
                 <li className="nav-item">
-                    <Link to="/register">
-                    <button className="btn btn-primary px-4">Register</button>
+                    <Link to="/profile">
+                    <button className="btn btn-primary px-4">Login</button>
                     </Link>
                 </li>
                 <li className="nav-item">
