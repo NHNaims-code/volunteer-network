@@ -13,7 +13,7 @@ const AddEvent = () => {
     }
 const eventSubmit = (e) => {
     const token = sessionStorage.getItem('token');
-    fetch('http://localhost:5000/addevent',{
+    fetch('https://quiet-spire-05247.herokuapp.com/addevent',{
         method: 'POST',
         headers: {
             "Authorization" : `Bearer ${token}`,

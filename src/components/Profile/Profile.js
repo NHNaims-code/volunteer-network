@@ -12,7 +12,7 @@ const Profile = () => {
     
     useEffect(() => {
         const token = sessionStorage.getItem('token');
-        fetch(`http://localhost:5000/user/${loggedInUser.email}`,{
+        fetch(`https://quiet-spire-05247.herokuapp.com/user/${loggedInUser.email}`,{
             method: 'GET',
             headers: {
                 "Authorization" : `Bearer ${token}`,
@@ -27,7 +27,7 @@ const Profile = () => {
     },[profileDataChange])
 
     const cancleEvent = (id)=>{
-        fetch(`http://localhost:5000/cancle/${id}`, {
+        fetch(`https://quiet-spire-05247.herokuapp.com/cancle/${id}`, {
             method: 'DELETE',
         })
         .then(response => response.json())

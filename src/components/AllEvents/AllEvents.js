@@ -10,7 +10,7 @@ const AllEvents = () => {
     const [searchText, setSearchText] = useState('')
     const [url, setUrl] = useState('')
     useEffect(()=>{
-        fetch('http://localhost:5000/events')
+        fetch('https://quiet-spire-05247.herokuapp.com/events')
         .then(res => res.json())
         .then(data => setEvents(data))
     },[])
@@ -32,7 +32,7 @@ const AllEvents = () => {
     };
 
     const handleSearch = () => {
-        searchText && fetch('http://localhost:5000/search?search='+searchText)
+        searchText && fetch('https://quiet-spire-05247.herokuapp.com/search?search='+searchText)
         .then(response => response.json())
         .then(data => setEvents(data))
         console.log(searchText);

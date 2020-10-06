@@ -23,7 +23,7 @@ const Registration = () => {
     const handleRegistration = (e) => {
         // const registrationData = { name: loggedInUser.name, profileImage: loggedInUser.photo, imageUrl: loggedInUser.imageUrl,...registration}
         console.log('resg',loggedInUser);
-        fetch('http://localhost:5000/register',{
+        fetch('https://quiet-spire-05247.herokuapp.com/register',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 const RegisterList = () => {
     const [users, setUsers] = useState([])
     const token = sessionStorage.getItem('token');
-    fetch('http://localhost:5000/users',{
+    fetch('https://quiet-spire-05247.herokuapp.com/users',{
         method: 'GET',
             headers: {
                 "Authorization" : `Bearer ${token}`,
@@ -14,7 +14,7 @@ const RegisterList = () => {
     .then(data => setUsers(data))
 
     const deleteRegister = (email) =>{
-        fetch('http://localhost:5000/delete/'+email, {
+        fetch('https://quiet-spire-05247.herokuapp.com/delete/'+email, {
             method: 'DELETE'
         })
         .then(response => response.json())
