@@ -1,22 +1,46 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { UserContext } from '../../App';
 import logo from '../../logos/logo.png';
+import './Profile.css'
 
 const Profile = () => {
     const [loggedInUser, setLoggedInUser]= useContext(UserContext)
     const [profile, setProfile] = useState([])
+    const [profileDataChange, setProfileDataChange] = useState(true)
     // const [profileEvent, setProfileEvent] = useState([])
     
-    fetch(`http://localhost:5000/user/${loggedInUser.email}`)
-    .then(response => response.json())
-    .then(data => {
-        setProfile(data);
-        console.log(data);
-    })
+    useEffect(() => {
+        const token = sessionStorage.getItem('token');
+        fetch(`http://localhost:5000/user/${loggedInUser.email}`,{
+            method: 'GET',
+            headers: {
+                "Authorization" : `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            setProfile(data);
+            console.log(data);
+        })
+    },[profileDataChange])
+
+    const cancleEvent = (id)=>{
+        fetch(`http://localhost:5000/cancle/${id}`, {
+            method: 'DELETE',
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data){
+                setProfileDataChange(!profileDataChange)  
+                alert('Cancle successful') 
+            }
+        })
+    }
     return (
         <div>
-            <div style={{height: '380px', background: '#F8FAFC'}}>
+            <div style={{height: '180px', background: '#F8FAFC'}}>
             <div className="navbar navbar-expand-lg navbar-light bg-light container row mx-auto">
             <a className="navbar-brand col-5 text-left" href="#">
                 <Link to='/'>
@@ -29,38 +53,44 @@ const Profile = () => {
             <div className="collapse navbar-collapse col-7 " id="navbarText">
                 <ul className="navbar-nav w-100 d-flex justify-content-between">
                 <li className="nav-item active">
+                    <Link to="/">
                     <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+                    </Link>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link" href="#">Donation</a>
+                    <a  onClick={()=>{alert('Cooming soon!')}}  className="nav-link" href="#">Donation</a>
                 </li>
                 <li className="nav-item">
+                    <Link to="/">
                     <a className="nav-link" href="#">Events</a>
+                    </Link>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link" href="#">Blog</a>
+                    <a onClick={()=>{alert('Cooming soon!')}} className="nav-link" href="#">Blog</a>
                 </li>
                 <li className="nav-item">
                    <img style={{borderRadius: '50px', height:'30px'}} src={loggedInUser.photo} alt=""/>
-                  
                 </li>
                 </ul>
             </div>
             </div>
+           <h1 className="text-warning text-center"><span className="text-dark"> Welcome! </span>{loggedInUser.name}</h1>
             </div>
-
-            <div className="row">
+            <div className="row container mx-auto mt-5">
                 {
-                    profile.map(pro => 
-                        <div className="p-3 col-md-6 d-flex">
-                            <img className="mr-5" src={pro.imageUrl} height="250px" alt=""/>
-                            <div className="">
+                    
+                    profile.length?profile.map(pro => 
+                        <div className="col-md-5 d-flex justify-content-between your-events">
+                            <img className="mr-5" src={pro.imageUrl} height="200px" alt=""/>
+                            <div className="d-flex align-items-center">
+                                <div>
                                 <h2>{pro.eventTitle}</h2>
-                                <p>{pro.date}</p>
-                                <button className="btn btn-danger">Cancle</button>
+                                <p>{pro.eventDate}</p>
+                                <button onClick={()=> {cancleEvent(pro._id)}} className="btn btn-danger">Cancle</button>
+                                </div>
                             </div>
                         </div>
-                        )
+                        ):<h4 className="text-center text-muted w-100">( Your have no event right now )</h4>
                 }
             </div>
         </div>

@@ -7,6 +7,8 @@ const AllEvents = () => {
     const history = useHistory();
     const [events, setEvents] = useState([])
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    const [searchText, setSearchText] = useState('')
+    const [url, setUrl] = useState('')
     useEffect(()=>{
         fetch('http://localhost:5000/events')
         .then(res => res.json())
@@ -22,28 +24,48 @@ const AllEvents = () => {
         console.log(loggedInUser);
         history.push('/register')
     }
+   
+    
+    const handleSearchText = (e) => {
+        const text = e.target.value;
+        setSearchText(text);
+    };
+
+    const handleSearch = () => {
+        searchText && fetch('http://localhost:5000/search?search='+searchText)
+        .then(response => response.json())
+        .then(data => setEvents(data))
+        console.log(searchText);
+    }
+
     return (
         <div>
-            <div className="row container mx-auto">
 
+
+        <div className="pt-4">
+            <h1>I GROW BY HELPING PEOPLE IN NEED.</h1>
+            <div className="input-group mb-3 mt-4 w-25 mx-auto">
+                <input type="text"onChange={handleSearchText} className="form-control" placeholder="search..." aria-label="search..." aria-describedby="basic-addon2"/>
+                <div className="input-group-append">
+                    <span onClick={handleSearch} className="input-group-text bg-primary text-white" id="basic-addon2">Search</span>
+                </div>
+            </div>
+        </div>
+
+            <div className="row container mx-auto">
                 {
+                    events.length?
                     events.map(event =>
-                        // <Link to="/register">
                         <div onClick={()=>{goToRegister(event.title, event.url)}} className="card col-md-3 border-0 p-4">
                         <img height="220px" src={event.url} alt=""/>
                         <div className="card-footer p-4" style={{backgroundColor: `${event.color}`}}>
                             <p className="text-center text-white m-0">{event.title}</p>
                         </div>
                         </div>
-                        // </Link>
-                    )
+                    ):<h3 className="text-center w-100 text-dark mt-5">( event not found! )</h3>
                 }
                 
             </div>
-             {/* <div className="row bg-dark">
-            <div className="col-8 bg-warning">col-8</div>
-            <div className="col-8 bg-danger">col-8</div>
-                </div> */}
         </div>
     );
 };

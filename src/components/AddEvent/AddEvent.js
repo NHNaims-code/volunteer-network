@@ -12,9 +12,11 @@ const AddEvent = () => {
         console.log(event);
     }
 const eventSubmit = (e) => {
+    const token = sessionStorage.getItem('token');
     fetch('http://localhost:5000/addevent',{
         method: 'POST',
         headers: {
+            "Authorization" : `Bearer ${token}`,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(event)

@@ -7,12 +7,15 @@ import './Admin.css'
 
 const Admin = () => {
     const [selected, setSelected] = useState(false)
+    const [selectStyels, setSelectStyles] = useState({color1:'blue', color2: 'black'})
     const handleAdmin = (a)=> {
         if(a === 'list'){
+            setSelectStyles({color1: 'blue', color2: 'black'})
             setSelected(false)
         }
         if(a === 'add'){
             setSelected(true)
+            setSelectStyles({color1: 'black', color2: 'blue'})
         }
     }
     return (
@@ -23,8 +26,8 @@ const Admin = () => {
                         <Link to='/'>
                         <img className="mb-5" height="35px" src={logo} alt=""/>
                         </Link>
-                        <p onClick={()=>{handleAdmin('list')}}><span><i class="fa fa-users" aria-hidden="true"></i></span> Volunteer register list</p>
-                        <p onClick={()=>{handleAdmin('add')}}><span><i class="fa fa-plus" aria-hidden="true"></i></span> Add event</p>
+                        <p onClick={()=>{handleAdmin('list')}} style={{color:selectStyels.color1, cursor: 'pointer'}}><span><i class="fa fa-users" aria-hidden="true"></i></span> Volunteer register list</p>
+                        <p onClick={()=>{handleAdmin('add')}} style={{color:selectStyels.color2, cursor: 'pointer'}}><span><i class="fa fa-plus" aria-hidden="true"></i></span> Add event</p>
                     </div>
                 </div>
                 <div className="col-9 info">

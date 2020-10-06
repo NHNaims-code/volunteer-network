@@ -28,17 +28,8 @@ const Login = () => {
             newSignIn.photo = photoURL;
             newSignIn.error = 'test for working';
             newSignIn.success = true;
-            // const signedInUser = {
-            //     isSignedIn: false,
-            //     name: displayName,
-            //     email: email,
-            //     password:'',
-            //     photo: photoURL,
-            //     error: 'test for working',
-            //     success: true,
-            // }
             setLoggedInUser(newSignIn)
-            history.replace(from)
+            storeAuthToken();
           }).catch(function(error) {
             // Handle Errors here.
             var errorCode = error.code;
@@ -48,6 +39,16 @@ const Login = () => {
             // The firebase.auth.AuthCredential type that was used.
             var credential = error.credential;
             // ...
+          });
+    }
+
+    const storeAuthToken = () => {
+        firebase.auth().currentUser.getIdToken(/* forceRefresh */ true)
+        .then(function(idToken) {
+            sessionStorage.setItem('token', idToken)
+            history.replace(from)
+          }).catch(function(error) {
+            // Handle error
           });
     }
     return (

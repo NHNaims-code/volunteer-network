@@ -8,6 +8,10 @@ const Registration = () => {
     const history = useHistory();
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
     const [registration, setRegistration] = useState({});
+    if(!loggedInUser.eventTitle){
+        history.push('/')
+        alert('Please select event')
+    }
     const handleBlur = (e) => {
         const name = e.target.name;
         const value = e.target.value;
