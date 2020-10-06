@@ -12,7 +12,7 @@ const Profile = () => {
     
     useEffect(() => {
         const token = sessionStorage.getItem('token');
-        fetch(`http://localhost:5000/user/${loggedInUser.email}`)
+        fetch(`https://quiet-spire-05247.herokuapp.com/user/${loggedInUser.email}`)
         .then(response => response.json())
         .then(data => {
             setProfile(data);
